@@ -15,32 +15,65 @@ Compiles, CI green, structure correct, no domain logic.
 
 ---
 
-## v0.2.0 -- `IndexBuilder<I>` + sequential build/build_into (THE HARD PART, NOT DEFERRED)
+## v0.2.0 -- `IndexBuilder<I>` + sequential build/build_into (DONE)
+
+`IndexBuilder<I>` plus the Tier-1 `build` / `build_into` free functions; the full
+sequential construction path. `build_into` is bound on the object-safe
+`IndexCore`, so it also serves `&mut dyn IndexCore`.
 
 Exit criteria:
-- [ ] Every public item has rustdoc + a runnable example.
-- [ ] Core invariants property-tested.
+- [x] Every public item has rustdoc + a runnable example.
+- [x] Core invariants property-tested (completeness, equivalence, additivity,
+  duplicate rejection).
 
 ---
 
-## v0.3.0 -- rayon parallel construction + batching
+## v0.3.0 -- rayon parallel construction + batching (DONE)
+
+`IndexBuilder::build_parallel` splits the input into shards and constructs one
+sub-index per shard on rayon's pool; `with_shards` / `shards` control the count.
+rayon is a core dependency. Merging the shards into one index is deferred to 0.4
+(per the split -> build-parallel -> merge design in DIRECTIVES §1).
 
 Exit criteria:
-- [ ] New surface tested and benchmarked where it is a hot path.
+- [x] New surface tested (completeness, clamping, id partitioning, single-shard
+  parity) and benchmarked (`build_parallel` criterion group vs the sequential
+  baseline).
 
 ---
 
-## v0.4.0 -- index merging (`Mergeable`) + progress reporting + feature freeze
+## v0.4.0 -- index merging (`Mergeable`) + progress reporting + feature freeze (DONE)
+
+The `Mergeable` trait (owned here, since `iqdb-index` is frozen at 1.0), the
+`merge` free function, and `IndexBuilder::build_merged` for the full
+split -> build-parallel -> merge pipeline. `on_progress` / `BuildProgress` report
+shard completion.
 
 Exit criteria:
-- [ ] No `todo!`/`unimplemented!`. Feature freeze declared.
+- [x] No `todo!`/`unimplemented!`. Feature freeze declared (the public surface is
+  complete; remaining work is `loom` hardening + stabilization).
 
 ---
 
-## v0.5.0 -- concurrent-build correctness + API freeze
+## v0.5.0 -- concurrent-build correctness + API freeze (DONE)
+
+`loom` model check (`tests/loom_iqdb_build.rs`) over the only shared-state path in
+parallel construction — the progress counter — proving exact counting under every
+interleaving. The public API is frozen for the rest of the 0.x series and until
+2.0 once 1.0 ships.
+
+### Frozen public API (recorded here)
+
+- `VERSION: &str`
+- `BuildItem` (type alias for `(VectorId, Arc<[f32]>, Option<Metadata>)`)
+- free fns: `build`, `build_into`, `merge`
+- `IndexBuilder<I>`: `new`, `with_config`, `with_shards`, `on_progress`, `dim`,
+  `metric`, `config`, `shards`, `build`, `build_parallel`, `build_merged`; `Clone`
+- `Mergeable` trait: `merge`
+- `BuildProgress`: fields `shards_completed`, `shards_total`
 
 Exit criteria:
-- [ ] Public API frozen (recorded here). `cargo audit` + `cargo deny` clean.
+- [x] Public API frozen (recorded above). `cargo audit` + `cargo deny` clean.
 
 ---
 

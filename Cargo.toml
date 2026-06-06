@@ -9,7 +9,7 @@
 #╚═══════════════════════════════╝
 [package]
 name    = "iqdb-build"
-version = "0.1.0"
+version = "0.5.0"
 
 # Minimum Supported Rust Version (MSRV)
 rust-version = "1.87"
@@ -46,12 +46,19 @@ documentation = "https://docs.rs/iqdb-build"
 
 # Authors
 authors = [
-    "James Gober <me@jamesgober.com>"
+    "James Gober <me@jamesgober.com>",
+    "Matt Callahan <matthewcallahan01@icloud.com>"
 ]
 
 [package.metadata.docs.rs]
 all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
+
+# `--cfg loom` is set by the loom CI job (and locally) to compile the loom model
+# check in `tests/loom_iqdb_build.rs`. Register it so it is not flagged as an
+# unexpected cfg under `-D warnings`.
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(loom)'] }
 
 [lib]
 name = "iqdb_build"
@@ -60,18 +67,26 @@ path = "src/lib.rs"
 
 # FEATURE FLAGS
 # #################################
+# The crate has no feature flags. It builds on `iqdb-index`, which is itself a
+# pure, std-only trait crate, so there is no `no_std` split to gate and nothing
+# optional to toggle. The default build is the whole surface.
 [features]
-default = ["std"]
-# Standard library.
-std = []
-# Serialization support.
-serde = ["dep:serde"]
+default = []
 
 
 # DEPENDENCIES
 # #################################
 [dependencies]
-serde = { version = "1", optional = true, default-features = false, features = ["derive", "alloc"] }
+# The polymorphism layer: the `Index` / `IndexCore` traits the builder is
+# generic over. Pulls in `iqdb-types` transitively.
+iqdb-index = "1.0.0"
+# Shared public vocabulary: VectorId, Metadata, DistanceMetric, IqdbError,
+# Result. The builder propagates `iqdb-index` errors unchanged.
+iqdb-types = "1.0.0"
+# Data-parallel sharded construction. The whole point of this crate is the bulk
+# path, so rayon is a core dependency, not an optional toggle: `build_parallel`
+# splits input across a work-stealing pool and builds the shards concurrently.
+rayon = "1"
 
 
 # DEV DEPENDENCIES
