@@ -73,7 +73,7 @@ Tier 1 covers the entire common case in a handful of calls, with no builder and 
 
 ## 8. Project-specific invariants
 
-Stack: Rust edition 2024, MSRV 1.85. Errors via `error-forge`. Tests via `cargo test` + `criterion` + `loom` + `proptest`.
+Stack: Rust edition 2024, MSRV 1.87. Errors via `error-forge`. Tests via `cargo test` + `criterion` + `loom` + `proptest`.
 
 - Concurrent HNSW construction is the hard case; correctness under concurrent insert is proven before speed is chased.
 - Merge semantics differ per index (IVF appends; HNSW re-runs boundary heuristics) and are documented.
