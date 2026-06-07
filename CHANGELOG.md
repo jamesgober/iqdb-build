@@ -20,27 +20,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [0.6.0] - 2026-06-07
 
-Alpha: integration against the real index backends. The public API is unchanged
-from the 0.5.0 freeze — this release proves the generic builder works with the
-actual iQDB indexes, not just the in-crate toy.
+Alpha: entering the pre-1.0 validation band. The public API is unchanged from the
+0.5.0 freeze — this release adds an end-to-end soak test and aligns the version
+with the iQDB family line.
 
 ### Added
 
-- `tests/real_backends.rs` — integration tests that drive `build`,
-  `build_parallel`, and `build_into` against the **real** `iqdb_flat::FlatIndex`
-  and `iqdb_hnsw::HnswIndex` (constructing, sharding, appending, and searching
-  each), confirming the generic builder threads each backend's own `Config` and
-  produces usable indexes. `iqdb-flat` / `iqdb-hnsw` are path **dev**-dependencies
-  (dropped from the published manifest), so this coupling is test-only.
 - `tests/consumer_simulation.rs` — an end-to-end soak test that drives the whole
-  public surface the way `iqdb` would (one-call build, configured build, parallel
-  sharded build, `build_merged` with progress, incremental `build_into`, `merge`,
-  and search/delete), asserting parallel-merged recall matches a sequential build.
+  public surface the way the `iqdb` engine would (one-call build, configured
+  build, parallel sharded build, `build_merged` with progress, incremental
+  `build_into`, `merge`, and search/delete), asserting parallel-merged recall
+  matches a sequential build. It runs against an in-crate index so the suite stays
+  self-contained — cross-crate validation against the real `iqdb-flat` /
+  `iqdb-hnsw` backends lives in `iqdb-eval` / the engine workspace, where all
+  crates are present, not in this standalone crate's CI.
 
 ### Changed
 
 - Numbered `0.6.0` to align with the iQDB family's version line (`iqdb-flat` /
-  `iqdb-hnsw` are at `0.6.0`; the public API remains frozen as committed at 0.5.0).
+  `iqdb-hnsw` are at `0.6.0`+; the public API remains frozen as committed at 0.5.0).
 
 ---
 

@@ -77,22 +77,29 @@ Exit criteria:
 
 ---
 
-## v0.6.0 -- Alpha: real-backend integration (DONE)
+## v0.6.0 -- Alpha: entering the validation band (DONE)
 
-Integration against the real `Index` backends now that they exist:
-`tests/real_backends.rs` drives `build` / `build_parallel` / `build_into` against
-`iqdb_flat::FlatIndex` and `iqdb_hnsw::HnswIndex` (path dev-deps), proving the
-generic builder constructs, shards, appends to, and searches the actual indexes —
-not just the in-crate toy. The public API is unchanged from the 0.5.0 freeze;
-numbered 0.6.0 to align with the family version line.
+The public API is unchanged from the 0.5.0 freeze; numbered 0.6.0 to align with
+the family version line. The new surface is a self-contained end-to-end soak test
+(`tests/consumer_simulation.rs`) that drives the whole public surface the way the
+engine would.
 
-- [x] Builds and searches real flat + HNSW indexes through the public surface.
+**Cross-crate integration lives elsewhere.** Validating the builder against the
+*real* `iqdb-flat` / `iqdb-hnsw` backends requires all crates present at once,
+which the standalone repo's CI does not provide (siblings are neither checked out
+nor published). That integration belongs in `iqdb-eval` / the engine workspace,
+not in this crate's tests — the same split `iqdb-flat` records for its recall
+oracle. (An earlier attempt to wire path dev-deps to the siblings broke CI and was
+reverted.)
+
+- [x] Self-contained consumer-simulation soak test; version aligned to the family.
 
 ---
 
 ## v0.7.x -> v0.9.x -- Beta -> RC
 
-- 0.7.x: integrate against the `iqdb` engine; MINOR-compatible additions only.
+- 0.7.x: integrate against the `iqdb` engine (in the engine workspace);
+  MINOR-compatible additions only.
 - 0.8.x (beta): bug fixes; broader testing; final benchmarks.
 - 0.9.x (rc): critical fixes + doc polish.
 

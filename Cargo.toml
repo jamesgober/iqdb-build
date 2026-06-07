@@ -94,12 +94,6 @@ rayon = "1"
 [dev-dependencies]
 criterion = { version = "0.5", features = ["html_reports"] }
 proptest = "1"
-# Real `Index` backends, used only by the `real_backends` integration test to
-# prove the generic builder constructs actual flat and HNSW indexes (not just the
-# toy test index). Path-only dev-deps: dropped from the published manifest, so
-# they never become a runtime/publish dependency.
-iqdb-flat = { path = "../iqdb-flat" }
-iqdb-hnsw = { path = "../iqdb-hnsw" }
 
 [target.'cfg(loom)'.dev-dependencies]
 loom = "0.7"

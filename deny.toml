@@ -35,11 +35,6 @@ exceptions = []
 [bans]
 multiple-versions = "warn"
 wildcards = "deny"
-# The `iqdb-flat` / `iqdb-hnsw` real-backend integration test uses version-less
-# path dev-dependencies on the sibling repos (test-only; dropped from the
-# published manifest). Path deps are inherently local, so exempt them from the
-# wildcard ban while still denying wildcard *registry* deps.
-allow-wildcard-paths = true
 highlight = "all"
 workspace-default-features = "allow"
 external-default-features = "allow"
