@@ -96,20 +96,20 @@ reverted.)
 
 ---
 
-## v0.7.x -> v0.9.x -- Beta -> RC
+## v1.0.0 -- Stable (DONE)
 
-- 0.7.x: integrate against the `iqdb` engine (in the engine workspace);
-  MINOR-compatible additions only.
-- 0.8.x (beta): bug fixes; broader testing; final benchmarks.
-- 0.9.x (rc): critical fixes + doc polish.
+Released straight from the 0.6.0 alpha once the Definition of Done was met — the
+0.7–0.9 beta/RC band was collapsed (the crate's own work was complete; the only
+remaining activity, engine integration, lives downstream and does not gate this
+crate's stability, the same way `iqdb-flat` reached 1.0).
 
----
+- [x] Definition of Done (DIRECTIVES section 7) satisfied.
+- [x] Public API frozen until 2.0 (frozen surface recorded under v0.5.0 above).
+- [x] Release note written (`docs/release/v1.0.0.md`). Publish + tag: maintainer.
 
-## v1.0.0 -- Stable
-
-- [ ] Definition of Done (DIRECTIVES section 7) satisfied.
-- [ ] Public API frozen until 2.0.
-- [ ] Release note written; published to crates.io; tag pushed.
+**Post-1.0 (additive, non-breaking only):** engine integration in `iqdb` /
+`iqdb-eval`; the `iqdb-index`-side `Mergeable` if it ever migrates there; further
+benchmarks.
 
 ---
 

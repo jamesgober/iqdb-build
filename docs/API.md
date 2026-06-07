@@ -1,14 +1,13 @@
 # iqdb-build &mdash; API Reference
 
-> Complete reference for **every** public item in `iqdb-build` as of **v0.6.0**:
+> Complete reference for **every** public item in `iqdb-build` as of **v1.0.0**:
 > what it is, its parameters and return shape, the contract it carries, and
 > worked examples for each use case.
 >
-> **Status: pre-1.0, API frozen.** As of v0.5.0 the public surface is complete
-> and frozen (the full list is recorded in [`dev/ROADMAP.md`](../dev/ROADMAP.md));
-> the 0.6 → 0.9 series is consumer integration and stabilization, and 1.0 holds
-> the surface until 2.0. Only additive, non-breaking changes are expected from
-> here.
+> **Status: stable (1.0).** The public surface is committed under SemVer for the
+> 1.x series — no breaking changes until 2.0 (the frozen surface is recorded in
+> [`dev/ROADMAP.md`](../dev/ROADMAP.md)). Only additive, non-breaking changes are
+> made within 1.x.
 
 ## Table of Contents
 

@@ -29,7 +29,7 @@
         <strong>MSRV is 1.87+</strong> (Rust 2024 edition). One generic builder. Parallel sharded construction. Merge. Incremental append.
     </p>
     <blockquote>
-        <strong>Status: pre-1.0, in active development.</strong> The public API is being designed across the 0.x series and frozen at <code>1.0.0</code>. See <a href="./CHANGELOG.md"><code>CHANGELOG.md</code></a>.
+        <strong>Status: stable (1.0).</strong> The public API is committed under SemVer for the 1.x series &mdash; no breaking changes until 2.0. See <a href="./CHANGELOG.md"><code>CHANGELOG.md</code></a>.
     </blockquote>
 </div>
 
@@ -54,7 +54,7 @@ The feature set and the public API are frozen as of 0.5; what remains before 1.0
 
 ```toml
 [dependencies]
-iqdb-build = "0.6"
+iqdb-build = "1.0"
 ```
 
 <br>
@@ -110,7 +110,7 @@ Runnable end-to-end examples (with a toy backend) live in [`examples/`](./exampl
 
 ## Status
 
-<code>v0.6.0</code> &mdash; **feature-complete, API frozen, entering the validation band (alpha).** The generic `IndexBuilder<I>`; the Tier-1 `build` / `build_into` free functions; `build_parallel` for rayon-backed sharded construction; the `Mergeable` trait with `merge` and the one-call `build_merged` pipeline; and `on_progress` / `BuildProgress` reporting. Property-tested invariants (completeness, equivalence, additivity, duplicate rejection, parallel completeness, and merge equivalence), a `loom` model check over the concurrent progress path, an end-to-end consumer-simulation soak test, five runnable examples, and a criterion harness comparing sequential and parallel build. Zero `unsafe`; every public item is documented with a runnable example. The public API is frozen (recorded in the <a href="./dev/ROADMAP.md"><code>ROADMAP</code></a>); cross-crate validation against the real `iqdb-flat` / `iqdb-hnsw` backends runs in `iqdb-eval` / the engine workspace. The 0.7 → 0.9 series is engine integration and stabilization toward a 1.0 that holds the surface until 2.0. Full reference in <a href="./docs/API.md"><code>docs/API.md</code></a>.
+<code>v1.0.0</code> &mdash; **stable.** The generic `IndexBuilder<I>`; the Tier-1 `build` / `build_into` free functions; `build_parallel` for rayon-backed sharded construction; the `Mergeable` trait with `merge` and the one-call `build_merged` pipeline; and `on_progress` / `BuildProgress` reporting. Property-tested invariants (completeness, equivalence, additivity, duplicate rejection, parallel completeness, and merge equivalence), a `loom` model check over the concurrent progress path, an end-to-end consumer-simulation soak test, five runnable examples, and a criterion harness comparing sequential and parallel build. Zero `unsafe`; every public item is documented with a runnable example. The public API is committed under SemVer for the 1.x series (no breaking changes until 2.0; the frozen surface is recorded in the <a href="./dev/ROADMAP.md"><code>ROADMAP</code></a>), verified on Windows and Linux across stable and the 1.87 MSRV. Cross-crate validation against the real `iqdb-flat` / `iqdb-hnsw` backends runs in `iqdb-eval` / the engine workspace. Full reference in <a href="./docs/API.md"><code>docs/API.md</code></a>.
 
 <hr>
 <br>

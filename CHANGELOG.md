@@ -18,6 +18,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ---
 
+## [1.0.0] - 2026-06-07
+
+**Stable.** The public API is committed under SemVer for the 1.x series — no
+breaking changes until 2.0. No code change from 0.6.0: this release is the
+stability commitment, made once the Definition of Done (DIRECTIVES §7) was met —
+feature-complete, API-frozen, property- and `loom`-tested, benchmarked, zero
+`unsafe`, and green across the CI matrix on stable and the 1.87 MSRV.
+
+The frozen 1.x surface (recorded in `dev/ROADMAP.md`): `build`, `build_into`,
+`merge`; `BuildItem`; `VERSION`; `IndexBuilder<I>` (`new`, `with_config`,
+`with_shards`, `on_progress`, `dim`, `metric`, `config`, `shards`, `build`,
+`build_parallel`, `build_merged`, `Clone`); the `Mergeable` trait; and
+`BuildProgress`. `iqdb_types::IqdbError` is `#[non_exhaustive]`, so new error
+variants remain non-breaking; only additive, non-breaking changes are made within
+1.x.
+
+Cross-crate validation against the real `iqdb-flat` / `iqdb-hnsw` backends runs in
+`iqdb-eval` / the engine workspace (where all crates are present), not in this
+standalone crate's CI.
+
+---
+
 ## [0.6.0] - 2026-06-07
 
 Alpha: entering the pre-1.0 validation band. The public API is unchanged from the
@@ -157,6 +179,7 @@ Initial scaffold and repository bootstrap. No domain logic yet &mdash; this rele
 - `.github/workflows/ci.yml` CI matrix; `deny.toml`, `clippy.toml`, `rustfmt.toml`.
 - `dev/DIRECTIVES.md` and `dev/ROADMAP.md` (committed engineering standards + plan).
 
-[Unreleased]: https://github.com/jamesgober/iqdb-build/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/jamesgober/iqdb-build/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/jamesgober/iqdb-build/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/jamesgober/iqdb-build/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/jamesgober/iqdb-build/releases/tag/v0.5.0
