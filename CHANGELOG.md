@@ -10,18 +10,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- `tests/consumer_simulation.rs` — an end-to-end soak test that drives the whole
-  public surface the way `iqdb` would (one-call build, configured build, parallel
-  sharded build, `build_merged` with progress, incremental `build_into`, `merge`,
-  and search/delete), asserting parallel-merged recall matches a sequential
-  build. Stands in for real-backend integration until the concrete index crates
-  land.
-
 ### Changed
 
 ### Fixed
 
 ### Security
+
+---
+
+## [0.6.0] - 2026-06-07
+
+Alpha: integration against the real index backends. The public API is unchanged
+from the 0.5.0 freeze — this release proves the generic builder works with the
+actual iQDB indexes, not just the in-crate toy.
+
+### Added
+
+- `tests/real_backends.rs` — integration tests that drive `build`,
+  `build_parallel`, and `build_into` against the **real** `iqdb_flat::FlatIndex`
+  and `iqdb_hnsw::HnswIndex` (constructing, sharding, appending, and searching
+  each), confirming the generic builder threads each backend's own `Config` and
+  produces usable indexes. `iqdb-flat` / `iqdb-hnsw` are path **dev**-dependencies
+  (dropped from the published manifest), so this coupling is test-only.
+- `tests/consumer_simulation.rs` — an end-to-end soak test that drives the whole
+  public surface the way `iqdb` would (one-call build, configured build, parallel
+  sharded build, `build_merged` with progress, incremental `build_into`, `merge`,
+  and search/delete), asserting parallel-merged recall matches a sequential build.
+
+### Changed
+
+- Numbered `0.6.0` to align with the iQDB family's version line (`iqdb-flat` /
+  `iqdb-hnsw` are at `0.6.0`; the public API remains frozen as committed at 0.5.0).
 
 ---
 
@@ -140,5 +159,6 @@ Initial scaffold and repository bootstrap. No domain logic yet &mdash; this rele
 - `.github/workflows/ci.yml` CI matrix; `deny.toml`, `clippy.toml`, `rustfmt.toml`.
 - `dev/DIRECTIVES.md` and `dev/ROADMAP.md` (committed engineering standards + plan).
 
-[Unreleased]: https://github.com/jamesgober/iqdb-build/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/jamesgober/iqdb-build/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/jamesgober/iqdb-build/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/jamesgober/iqdb-build/releases/tag/v0.5.0

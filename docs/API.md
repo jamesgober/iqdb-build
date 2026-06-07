@@ -1,6 +1,6 @@
 # iqdb-build &mdash; API Reference
 
-> Complete reference for **every** public item in `iqdb-build` as of **v0.5.0**:
+> Complete reference for **every** public item in `iqdb-build` as of **v0.6.0**:
 > what it is, its parameters and return shape, the contract it carries, and
 > worked examples for each use case.
 >

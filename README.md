@@ -54,7 +54,7 @@ The feature set and the public API are frozen as of 0.5; what remains before 1.0
 
 ```toml
 [dependencies]
-iqdb-build = "0.5"
+iqdb-build = "0.6"
 ```
 
 <br>
@@ -110,7 +110,7 @@ Runnable end-to-end examples (with a toy backend) live in [`examples/`](./exampl
 
 ## Status
 
-<code>v0.5.0</code> &mdash; **feature-complete, API frozen.** The generic `IndexBuilder<I>`; the Tier-1 `build` / `build_into` free functions; `build_parallel` for rayon-backed sharded construction; the `Mergeable` trait with `merge` and the one-call `build_merged` pipeline; and `on_progress` / `BuildProgress` reporting. Property-tested invariants (completeness, equivalence, additivity, duplicate rejection, parallel completeness, and merge equivalence), a `loom` model check over the concurrent progress path, five runnable examples, and a criterion harness comparing sequential and parallel build. Zero `unsafe`; every public item is documented with a runnable example. The public API is frozen (recorded in the <a href="./dev/ROADMAP.md"><code>ROADMAP</code></a>); the 0.6 → 0.9 series is consumer integration and stabilization toward a 1.0 that holds the surface until 2.0. Full reference in <a href="./docs/API.md"><code>docs/API.md</code></a>.
+<code>v0.6.0</code> &mdash; **feature-complete, API frozen, integrated against real backends.** The generic `IndexBuilder<I>`; the Tier-1 `build` / `build_into` free functions; `build_parallel` for rayon-backed sharded construction; the `Mergeable` trait with `merge` and the one-call `build_merged` pipeline; and `on_progress` / `BuildProgress` reporting. Property-tested invariants (completeness, equivalence, additivity, duplicate rejection, parallel completeness, and merge equivalence), a `loom` model check over the concurrent progress path, integration tests that build/shard/append/search **real `iqdb-flat` and `iqdb-hnsw` indexes**, five runnable examples, and a criterion harness comparing sequential and parallel build. Zero `unsafe`; every public item is documented with a runnable example. The public API is frozen (recorded in the <a href="./dev/ROADMAP.md"><code>ROADMAP</code></a>); the 0.7 → 0.9 series is engine integration and stabilization toward a 1.0 that holds the surface until 2.0. Full reference in <a href="./docs/API.md"><code>docs/API.md</code></a>.
 
 <hr>
 <br>

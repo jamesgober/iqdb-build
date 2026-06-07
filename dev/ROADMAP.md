@@ -77,9 +77,22 @@ Exit criteria:
 
 ---
 
-## v0.6.0 -> v0.9.x -- Alpha / Beta -> RC
+## v0.6.0 -- Alpha: real-backend integration (DONE)
 
-- 0.6.x-0.7.x: integrate against real consumers; MINOR-compatible additions only.
+Integration against the real `Index` backends now that they exist:
+`tests/real_backends.rs` drives `build` / `build_parallel` / `build_into` against
+`iqdb_flat::FlatIndex` and `iqdb_hnsw::HnswIndex` (path dev-deps), proving the
+generic builder constructs, shards, appends to, and searches the actual indexes —
+not just the in-crate toy. The public API is unchanged from the 0.5.0 freeze;
+numbered 0.6.0 to align with the family version line.
+
+- [x] Builds and searches real flat + HNSW indexes through the public surface.
+
+---
+
+## v0.7.x -> v0.9.x -- Beta -> RC
+
+- 0.7.x: integrate against the `iqdb` engine; MINOR-compatible additions only.
 - 0.8.x (beta): bug fixes; broader testing; final benchmarks.
 - 0.9.x (rc): critical fixes + doc polish.
 
